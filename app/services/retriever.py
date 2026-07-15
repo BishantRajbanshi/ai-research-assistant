@@ -1,5 +1,7 @@
-# This loads out knowledge base and finds most relevent documents for a question.
-# which uses TF_TDF + cosine similarity 
+"""
+This loads out knowledge base and finds most relevent documents for a question.
+which uses TF_TDF + cosine similarity 
+"""
 
 from dataclasses import dataclass
 from pathlib import Path
@@ -23,10 +25,17 @@ class Retriever:
         self._load()
 
     def _load(self) -> None:
-        """Read every .md file in docs/ into memory, then vectorize."""
+        """
+        Read every .md file in docs_dir and store them into memory, then vectorize.
+        """
         for path in sorted(self.docs_dir.glob("*.md")):
             text = path.read_text(encoding="utf-8")
-            self.documents.append(Document(source=str(path), content=text))
+            self.documents.append(
+                Document(
+                    source=str(path),
+                      content=text
+                )
+            )
 
         if not self.documents:
             raise RuntimeError(f"No documents found in {self.docs_dir}")
