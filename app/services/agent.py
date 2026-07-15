@@ -1,3 +1,8 @@
+"""
+This is agent pipeline 
+Question -> Retriever -> LLM -> Answer + Sources
+"""
+
 import logging
 
 from app.core.config import settings
