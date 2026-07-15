@@ -8,7 +8,7 @@ class Settings(BaseSettings):
     openai_api_key: str = ""
     openai_model: str = "gpt-4"
 
-    docs_path: str = "docs"
+    docs_dir: str = "docs"
     top_k: int = 2
 
     class Config:
