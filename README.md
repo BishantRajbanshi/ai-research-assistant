@@ -5,17 +5,18 @@ LLM (RAG-style agent). The assistant retrieves relevant documents first, then
 generates an answer grounded in that context and within the knowledge only.
 
 ## Pipeline
-'''
+
+```
 User Question
-|
+      |
 Retrieve relevant docs (TF-IDF similarity)
-|
+      |
 Build prompt (question + context)
-|
+      |
 LLM generates answer (Ollama)
-|
+      |
 Return { answer, sources }
-'''
+```
 
 ## Setup
 
@@ -75,7 +76,8 @@ curl http://localhost:8000/health
 
 
 ## Architecture
-'''
+
+```
 app/
 ├── main.py              # FastAPI app, router registration
 ├── schemas.py           # Pydantic request/response models
@@ -87,7 +89,7 @@ app/
 └── core/config.py       # Env-based settings
 docs/                    # Knowledge base (markdown)
 tests/                   # Unit tests
-'''
+```
 
 Design decisions:
 
