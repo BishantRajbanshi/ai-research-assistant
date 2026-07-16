@@ -110,7 +110,7 @@ tests/                   # Unit tests
 
 Design decisions:
 
-- **Separation of concerns**: Routers only handles HTTP and all business logic
+- **Separation of concerns**: Routers only handle HTTP and all business logic
 is inside services folder with centralized configuration.
 - **Retrieval**: TF-IDF + cosine similarity for a small static knowledge
   base this is fast, deterministic, and needs no vector database. The
@@ -127,6 +127,6 @@ is inside services folder with centralized configuration.
 
 ## Assumptions
 
-- The knowledge base was small with statis texts of md files which can be loaded once at statup and it can be handled easily for small data but for large data embeddings and vectordb can be used.
+- The knowledge base was small with static texts of md files which can be loaded once at statup and it can be handled easily for small data but for large data embeddings and vectordb can be used.
 - Keyword-based (TF-IDF) retrieval is sufficient for this document count.
 - One LLM provider active at a time but intregrated openai sdk for easy swift.
