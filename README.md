@@ -6,7 +6,7 @@ generates an answer grounded in that context and within the knowledge only.
 
 ## Pipeline
 
-```
+```text
 User Question
       |
 Retrieve relevant docs (TF-IDF similarity)
@@ -20,7 +20,7 @@ Return { answer, sources }
 
 ## Setup
 
-Requirements: Python 3.10+, [Ollama](https://ollama.com)
+Requirements: Python 3.12+, [Ollama](https://ollama.com)
 
 ```bash
 git clone <repo-url>
@@ -37,7 +37,26 @@ ollama pull qwen2.5:7b
 uvicorn app.main:app --reload
 ```
 
-API runs at http://localhost:8000 — interactive docs at http://localhost:8000/docs
+API runs at <http://localhost:8000> — interactive docs at <http://localhost:8000/docs>
+
+## Run with Docker
+
+```bash
+docker build -t ai-research-assistant .
+
+docker run -p 8000:8000 --env-file .env ai-research-assistant
+```
+
+The docker image bundles the docs and knowlegde base and serves the api on port 8000
+Configuration is passed at runtime via `--env-file` (the `.env` file is not
+baked into the image).
+
+Note: when using Ollama,  when container cannot reach
+`localhost` on your machine — set `OLLAMA_BASE_URL=http://host.docker.internal:11434`
+in `.env`. This works out of the box on Docker Desktop; on plain Docker Engine
+(Linux) also add `--add-host=host.docker.internal:host-gateway` to the
+`docker run` command and make sure Ollama listens on more than loopback
+(`OLLAMA_HOST=0.0.0.0`).
 
 ## API Usage
 
@@ -73,8 +92,6 @@ curl http://localhost:8000/health
 
 ![Test Demo](assets/test.png)
 
-
-
 ## Architecture
 
 ```
@@ -93,7 +110,7 @@ tests/                   # Unit tests
 
 Design decisions:
 
-- **Separation of concerns**: Routers only handles HTTP and all business logic 
+- **Separation of concerns**: Routers only handles HTTP and all business logic
 is inside services folder with centralized configuration.
 - **Retrieval**: TF-IDF + cosine similarity for a small static knowledge
   base this is fast, deterministic, and needs no vector database. The
